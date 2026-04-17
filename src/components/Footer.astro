@@ -1,3 +1,37 @@
 ---
+import { CATEGORIES, SITE } from '../lib/categories';
+
+const year = new Date().getFullYear();
+const categories = Object.values(CATEGORIES);
 ---
-<footer>Footer placeholder</footer>
+
+<footer class="border-t border-[#E4E4E7] mt-20">
+  <div class="max-w-5xl mx-auto px-4 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+
+    <div>
+      <a href="/" class="font-semibold text-[#18181B] text-sm">{SITE.name}</a>
+      <p class="text-xs text-[#71717A] mt-1">© {year} {SITE.name}</p>
+    </div>
+
+    <nav aria-label="Nawigacja stopki">
+      <ul class="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+        {categories.map((cat) => (
+          <li>
+            <a
+              href={`/kategoria/${cat.slug}`}
+              class="text-[#71717A] hover:text-[#18181B] transition-colors duration-150"
+            >
+              {cat.label}
+            </a>
+          </li>
+        ))}
+        <li>
+          <a href="/o-nas" class="text-[#71717A] hover:text-[#18181B] transition-colors duration-150">
+            O nas
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+</footer>

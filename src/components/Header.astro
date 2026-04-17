@@ -1,3 +1,41 @@
 ---
+import { CATEGORIES, SITE } from '../lib/categories';
+import { Image } from 'astro:assets';
+import logo from '../assets/klaczek.svg';
+
+const currentPath = Astro.url.pathname;
+const categories = Object.values(CATEGORIES);
 ---
-<header>Header placeholder</header>
+
+<header class="border-b border-[#E4E4E7] bg-[#FAFAFA]">
+  <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-6">
+
+    <a href="/" class="flex items-center gap-2 shrink-0">
+      <Image src={logo} alt={SITE.name} width={32} height={32} />
+      <span class="font-semibold text-[#18181B] text-sm hidden sm:block">
+        {SITE.name}
+      </span>
+    </a>
+
+    <nav aria-label="Główna nawigacja">
+      <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm">
+        {categories.map((cat) => {
+          const isActive = currentPath.startsWith(`/kategoria/${cat.slug}`);
+          return (
+            <li>
+              <a
+                href={`/kategoria/${cat.slug}`}
+                class={`transition-colors duration-150 hover:text-[#EC4899] ${
+                  isActive ? 'text-[#EC4899] font-semibold' : 'text-[#71717A]'
+                }`}
+              >
+                {cat.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+  </div>
+</header>

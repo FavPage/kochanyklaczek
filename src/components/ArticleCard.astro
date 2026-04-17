@@ -1,0 +1,51 @@
+---
+import { CATEGORIES } from '../lib/categories';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'blog'>;
+}
+
+const { article } = Astro.props;
+const { title, category, image, imageAlt, readingTime, publishDate } = article.data;
+const cat = CATEGORIES[category];
+
+const dateFormatted = publishDate.toLocaleDateString('pl-PL', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<article class="group border border-[#E4E4E7] rounded-lg overflow-hidden bg-white hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-shadow duration-200">
+  <a href={`/blog/${article.slug}`} class="block">
+
+    <div class="aspect-[3/2] overflow-hidden bg-[#F4F4F5]">
+      <img
+        src={image}
+        alt={imageAlt}
+        class="w-full h-full object-cover"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <div class="p-5">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-semibold uppercase tracking-wide text-[#EC4899] bg-[#FCE7F3] px-2.5 py-0.5 rounded-full">
+          {cat.label}
+        </span>
+        <span class="text-xs text-[#71717A]">{readingTime} min czytania</span>
+      </div>
+
+      <h2 class="font-['Instrument_Serif'] text-xl text-[#18181B] leading-snug mb-2 group-hover:text-[#EC4899] transition-colors duration-150">
+        {title}
+      </h2>
+
+      <time class="text-xs text-[#71717A]" datetime={publishDate.toISOString()}>
+        {dateFormatted}
+      </time>
+    </div>
+
+  </a>
+</article>
