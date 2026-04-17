@@ -32,7 +32,7 @@ const {
 const fullTitle = `${title} — ${SITE.name}`;
 const ogImage = image ? `${SITE.url}${image}` : `${SITE.url}/og-default.jpg`;
 
-const articleSchema = type === 'article' ? {
+const articleSchema = type === 'article' && publishDate ? {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: title,
@@ -50,8 +50,8 @@ const articleSchema = type === 'article' ? {
       url: `${SITE.url}${SITE.logo}`,
     },
   },
-  datePublished: publishDate?.toISOString(),
-  dateModified: (updatedDate ?? publishDate)?.toISOString(),
+  datePublished: publishDate.toISOString(),
+  dateModified: (updatedDate ?? publishDate).toISOString(),
 } : null;
 
 const faqSchema = faq.length > 0 ? {
