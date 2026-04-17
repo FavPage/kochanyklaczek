@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import ArticleCard from './ArticleCard.astro';
+
+interface Props {
+  currentId: string;
+  relatedIds: string[];
+  category: string;
+}
+
+const { currentId, relatedIds, category } = Astro.props;
+
+const allArticles = await getCollection('blog', (a) => !a.data.draft && a.id !== currentId);
+
+const manual = allArticles.filter((a) => relatedIds.includes(a.id));
+const auto = allArticles
+  .filter((a) => a.data.category === category && !relatedIds.includes(a.id))
+  .slice(0, 2 - manual.length);
+
+const related = [...manual, ...auto].slice(0, 2);
+---
+
+{related.length > 0 && (
+  <section class="not-prose mt-16 pt-10 border-t border-[#E4E4E7]">
+    <h2 class="text-sm font-semibold uppercase tracking-widest text-[#71717A] mb-6">
+      Zobacz też
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {related.map((article) => (
+        <ArticleCard article={article} />
+      ))}
+    </div>
+  </section>
+)}

@@ -1,0 +1,117 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TOC from '../components/TOC.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
+import { CATEGORIES } from '../lib/categories';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'blog'>;
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { article, headings } = Astro.props;
+const { title, description, category, image, imageAlt, publishDate, updatedDate, author, faq, relatedPosts, readingTime } = article.data;
+const cat = CATEGORIES[category];
+
+const publishFormatted = publishDate.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+const updatedFormatted = updatedDate?.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  imageAlt={imageAlt}
+  type="article"
+  publishDate={publishDate}
+  updatedDate={updatedDate}
+  author={author}
+  faq={faq}
+  breadcrumbs={[
+    { name: cat.label, url: `/kategoria/${cat.slug}` },
+    { name: title, url: `/blog/${article.id}` },
+  ]}
+>
+
+  <div class="max-w-5xl mx-auto px-4 py-10">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-[#71717A]">
+      <ol class="flex items-center gap-2">
+        <li><a href="/" class="hover:text-[#18181B] transition-colors">Strona główna</a></li>
+        <li aria-hidden="true">›</li>
+        <li>
+          <a href={`/kategoria/${cat.slug}`} class="text-[#EC4899] hover:underline">{cat.label}</a>
+        </li>
+        <li aria-hidden="true">›</li>
+        <li class="text-[#18181B] truncate max-w-[200px]">{title}</li>
+      </ol>
+    </nav>
+
+    <!-- Article header -->
+    <header class="mb-10">
+      <h1 class="font-['Instrument_Serif'] text-4xl sm:text-5xl text-[#18181B] leading-tight mb-4">
+        {title}
+      </h1>
+      <div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-[#71717A]">
+        <span>{readingTime} min czytania</span>
+        <time datetime={publishDate.toISOString()}>Opublikowano: {publishFormatted}</time>
+        {updatedDate && (
+          <time datetime={updatedDate.toISOString()}>Zaktualizowano: {updatedFormatted}</time>
+        )}
+      </div>
+    </header>
+
+    <!-- Hero image -->
+    <div class="mb-10 rounded-lg overflow-hidden aspect-[2/1]">
+      <img
+        src={image}
+        alt={imageAlt}
+        class="w-full h-full object-cover"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+
+    <!-- Content + TOC -->
+    <div class="flex gap-12">
+
+      <!-- Main content -->
+      <article class="prose flex-1 min-w-0">
+        <slot />
+
+        <!-- FAQ -->
+        {faq.length > 0 && (
+          <section class="not-prose mt-12 pt-10 border-t border-[#E4E4E7]">
+            <h2 class="text-xl font-semibold text-[#18181B] mb-6">Najczęstsze pytania</h2>
+            <dl class="space-y-0">
+              {faq.map(({ q, a }) => (
+                <div class="py-5 border-b border-[#E4E4E7]">
+                  <dt class="font-semibold text-[#18181B] mb-2">{q}</dt>
+                  <dd class="text-[#71717A] leading-relaxed">{a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+      </article>
+
+      <!-- TOC sidebar (desktop only) -->
+      <aside class="hidden lg:block w-56 shrink-0">
+        <div class="sticky top-8">
+          <TOC headings={headings} />
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Related posts -->
+    <RelatedPosts
+      currentId={article.id}
+      relatedIds={relatedPosts}
+      category={category}
+    />
+
+  </div>
+</BaseLayout>
