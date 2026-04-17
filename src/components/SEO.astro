@@ -1,0 +1,115 @@
+---
+import { SITE } from '../lib/categories';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  canonicalUrl?: string;
+  publishDate?: Date;
+  updatedDate?: Date;
+  author?: string;
+  faq?: { q: string; a: string }[];
+  breadcrumbs?: { name: string; url: string }[];
+  type?: 'website' | 'article';
+}
+
+const {
+  title,
+  description,
+  image,
+  imageAlt,
+  canonicalUrl = Astro.url.href,
+  publishDate,
+  updatedDate,
+  author = SITE.author,
+  faq = [],
+  breadcrumbs = [],
+  type = 'website',
+} = Astro.props;
+
+const fullTitle = `${title} — ${SITE.name}`;
+const ogImage = image ? `${SITE.url}${image}` : `${SITE.url}/og-default.jpg`;
+
+const articleSchema = type === 'article' ? {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  image: ogImage,
+  author: {
+    '@type': 'Organization',
+    name: author,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: SITE.name,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE.url}${SITE.logo}`,
+    },
+  },
+  datePublished: publishDate?.toISOString(),
+  dateModified: (updatedDate ?? publishDate)?.toISOString(),
+} : null;
+
+const faqSchema = faq.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: a,
+    },
+  })),
+} : null;
+
+const breadcrumbSchema = breadcrumbs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: SITE.url },
+    ...breadcrumbs.map((crumb, i) => ({
+      '@type': 'ListItem',
+      position: i + 2,
+      name: crumb.name,
+      item: `${SITE.url}${crumb.url}`,
+    })),
+  ],
+} : null;
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:type" content={type} />
+<meta property="og:image" content={ogImage} />
+{imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:locale" content="pl_PL" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+{imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
+
+<!-- Schemas JSON-LD -->
+{articleSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+)}
+{faqSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+)}
+{breadcrumbSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+)}
