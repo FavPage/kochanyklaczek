@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { CATEGORIES } from '../../lib/categories';
+import type { CategorySlug } from '../../lib/categories';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  return Object.keys(CATEGORIES).map((slug) => ({
+    params: { category: slug },
+  }));
+}
+
+const { category } = Astro.params as { category: CategorySlug };
+const cat = CATEGORIES[category];
+
+const articles = await getCollection('blog', (a) =>
+  !a.data.draft && a.data.category === category
+);
+const sorted = articles.sort((a, b) =>
+  b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+---
+
+<BaseLayout
+  title={cat.label}
+  description={cat.description}
+  breadcrumbs={[{ name: cat.label, url: `/kategoria/${cat.slug}` }]}
+>
+  <div class="max-w-5xl mx-auto px-4 py-12">
+
+    <nav aria-label="Breadcrumb" class="mb-6 text-sm text-[#71717A]">
+      <ol class="flex items-center gap-2">
+        <li><a href="/" class="hover:text-[#18181B] transition-colors">Strona główna</a></li>
+        <li aria-hidden="true">›</li>
+        <li class="text-[#18181B]">{cat.label}</li>
+      </ol>
+    </nav>
+
+    <h1 class="font-['Instrument_Serif'] text-4xl text-[#18181B] mb-3">{cat.label}</h1>
+    <p class="text-[#71717A] mb-10">{cat.description}</p>
+
+    {sorted.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sorted.map((article) => (
+          <ArticleCard article={article} />
+        ))}
+      </div>
+    ) : (
+      <p class="text-[#71717A]">Artykuły w tej kategorii pojawią się wkrótce.</p>
+    )}
+
+  </div>
+</BaseLayout>

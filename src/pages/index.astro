@@ -1,17 +1,88 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { CATEGORIES, SITE } from '../lib/categories';
+import { getCollection } from 'astro:content';
 
+const allArticles = await getCollection('blog', (a) => !a.data.draft);
+const sorted = allArticles.sort((a, b) =>
+  b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+const featured = sorted[0];
+const recent = sorted.slice(1, 7);
+const categories = Object.values(CATEGORIES);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Blog o kotach — żywienie, zdrowie, zachowanie"
+  description={SITE.description}
+>
+
+  <!-- Hero -->
+  <section class="max-w-5xl mx-auto px-4 pt-16 pb-12">
+    <h1 class="font-['Instrument_Serif'] text-4xl sm:text-5xl text-[#18181B] leading-tight mb-4 max-w-2xl">
+      Wiedza o kotach, której naprawdę potrzebujesz
+    </h1>
+    <p class="text-lg text-[#71717A] max-w-xl mb-10">
+      Praktyczne artykuły o żywieniu, zdrowiu i zachowaniu kota. Bez lania wody.
+    </p>
+
+    {featured && (
+      <a href={`/blog/${featured.id}`} class="group block border border-[#E4E4E7] rounded-lg overflow-hidden bg-white hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-shadow duration-200 max-w-2xl">
+        <div class="aspect-[2/1] overflow-hidden bg-[#F4F4F5]">
+          <img
+            src={featured.data.image}
+            alt={featured.data.imageAlt}
+            class="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
+        <div class="p-6">
+          <span class="text-xs font-semibold uppercase tracking-wide text-[#EC4899]">
+            {CATEGORIES[featured.data.category].label}
+          </span>
+          <h2 class="font-['Instrument_Serif'] text-2xl text-[#18181B] mt-2 leading-snug group-hover:text-[#EC4899] transition-colors duration-150">
+            {featured.data.title}
+          </h2>
+          <p class="text-sm text-[#71717A] mt-2">{featured.data.description}</p>
+        </div>
+      </a>
+    )}
+  </section>
+
+  <!-- Kategorie (lista tekstowa) -->
+  <section class="max-w-5xl mx-auto px-4 pb-12">
+    <h2 class="text-sm font-semibold uppercase tracking-widest text-[#71717A] mb-4">Kategorie</h2>
+    <ul class="flex flex-wrap gap-3">
+      {categories.map((cat) => (
+        <li>
+          <a
+            href={`/kategoria/${cat.slug}`}
+            class="text-sm text-[#18181B] border border-[#E4E4E7] rounded px-3 py-1.5 hover:border-[#EC4899] hover:text-[#EC4899] transition-colors duration-150"
+          >
+            {cat.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- Najnowsze artykuły -->
+  {recent.length > 0 && (
+    <section class="max-w-5xl mx-auto px-4 pb-20">
+      <h2 class="text-sm font-semibold uppercase tracking-widest text-[#71717A] mb-6">Najnowsze artykuły</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {recent.map((article) => (
+          <ArticleCard article={article} />
+        ))}
+      </div>
+
+      <div class="mt-8">
+        <a href="/blog" class="text-sm text-[#71717A] hover:text-[#18181B] underline underline-offset-4 transition-colors duration-150">
+          Wszystkie artykuły →
+        </a>
+      </div>
+    </section>
+  )}
+
+</BaseLayout>
