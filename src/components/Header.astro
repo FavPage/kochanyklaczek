@@ -1,7 +1,7 @@
 ---
 import { CATEGORIES, SITE } from '../lib/categories';
 import { Image } from 'astro:assets';
-import logo from '../assets/klaczek.svg';
+import logo from '../assets/logo.png';
 
 const currentPath = Astro.url.pathname;
 const categories = Object.values(CATEGORIES);
@@ -11,10 +11,7 @@ const categories = Object.values(CATEGORIES);
   <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-6">
 
     <a href="/" class="flex items-center gap-2 shrink-0">
-      <Image src={logo} alt={SITE.name} width={32} height={32} />
-      <span class="font-semibold text-[#18181B] text-sm hidden sm:block">
-        {SITE.name}
-      </span>
+      <Image src={logo} alt={SITE.name} width={88} height={88} />
     </a>
 
     <nav aria-label="Główna nawigacja">

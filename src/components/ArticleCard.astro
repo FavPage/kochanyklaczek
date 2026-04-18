@@ -17,7 +17,7 @@ const dateFormatted = publishDate.toLocaleDateString('pl-PL', {
 });
 ---
 
-<article class="group border border-[#E4E4E7] rounded-lg overflow-hidden bg-white hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-shadow duration-200">
+<article class="group border border-[#E4E4E7] rounded-lg overflow-hidden bg-white hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)] transition-shadow duration-200 cursor-pointer">
   <a href={`/blog/${article.id}`} class="block">
 
     <div class="aspect-[3/2] overflow-hidden bg-[#F4F4F5]">
@@ -35,14 +35,14 @@ const dateFormatted = publishDate.toLocaleDateString('pl-PL', {
         <span class="text-xs font-semibold uppercase tracking-wide text-[#EC4899] bg-[#FCE7F3] px-2.5 py-0.5 rounded-full">
           {cat.label}
         </span>
-        <span class="text-xs text-[#71717A]">{readingTime} min czytania</span>
+        <span class="text-xs text-[#52525B]">{readingTime} min czytania</span>
       </div>
 
       <h2 class="font-['Instrument_Serif'] text-xl text-[#18181B] leading-snug mb-2 group-hover:text-[#EC4899] transition-colors duration-150">
         {title}
       </h2>
 
-      <time class="text-xs text-[#71717A]" datetime={publishDate.toISOString()}>
+      <time class="text-xs text-[#52525B]" datetime={publishDate.toISOString()}>
         {dateFormatted}
       </time>
     </div>

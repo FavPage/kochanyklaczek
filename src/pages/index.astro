@@ -23,12 +23,12 @@ const categories = Object.values(CATEGORIES);
     <h1 class="font-['Instrument_Serif'] text-4xl sm:text-5xl text-[#18181B] leading-tight mb-4 max-w-2xl">
       Wiedza o kotach, której naprawdę potrzebujesz
     </h1>
-    <p class="text-lg text-[#71717A] max-w-xl mb-10">
+    <p class="text-lg text-[#52525B] max-w-xl mb-10">
       Praktyczne artykuły o żywieniu, zdrowiu i zachowaniu kota. Bez lania wody.
     </p>
 
     {featured && (
-      <a href={`/blog/${featured.id}`} class="group block border border-[#E4E4E7] rounded-lg overflow-hidden bg-white hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-shadow duration-200 max-w-2xl">
+      <a href={`/blog/${featured.id}`} class="group block border border-[#E4E4E7] rounded-lg overflow-hidden bg-white hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)] transition-shadow duration-200 max-w-2xl cursor-pointer">
         <div class="aspect-[2/1] overflow-hidden bg-[#F4F4F5]">
           <img
             src={featured.data.image}
@@ -44,7 +44,7 @@ const categories = Object.values(CATEGORIES);
           <h2 class="font-['Instrument_Serif'] text-2xl text-[#18181B] mt-2 leading-snug group-hover:text-[#EC4899] transition-colors duration-150">
             {featured.data.title}
           </h2>
-          <p class="text-sm text-[#71717A] mt-2">{featured.data.description}</p>
+          <p class="text-sm text-[#52525B] mt-2">{featured.data.description}</p>
         </div>
       </a>
     )}
@@ -52,13 +52,13 @@ const categories = Object.values(CATEGORIES);
 
   <!-- Kategorie (lista tekstowa) -->
   <section class="max-w-5xl mx-auto px-4 pb-12">
-    <h2 class="text-sm font-semibold uppercase tracking-widest text-[#71717A] mb-4">Kategorie</h2>
+    <h2 class="text-sm font-semibold uppercase tracking-widest text-[#52525B] mb-4">Kategorie</h2>
     <ul class="flex flex-wrap gap-3">
       {categories.map((cat) => (
         <li>
           <a
             href={`/kategoria/${cat.slug}`}
-            class="text-sm text-[#18181B] border border-[#E4E4E7] rounded px-3 py-1.5 hover:border-[#EC4899] hover:text-[#EC4899] transition-colors duration-150"
+            class="cursor-pointer text-sm text-[#18181B] border border-[#E4E4E7] rounded px-3 py-1.5 hover:border-[#EC4899] hover:text-[#EC4899] transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#EC4899] focus-visible:ring-offset-2"
           >
             {cat.label}
           </a>
@@ -70,7 +70,7 @@ const categories = Object.values(CATEGORIES);
   <!-- Najnowsze artykuły -->
   {recent.length > 0 && (
     <section class="max-w-5xl mx-auto px-4 pb-20">
-      <h2 class="text-sm font-semibold uppercase tracking-widest text-[#71717A] mb-6">Najnowsze artykuły</h2>
+      <h2 class="text-sm font-semibold uppercase tracking-widest text-[#52525B] mb-6">Najnowsze artykuły</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {recent.map((article) => (
           <ArticleCard article={article} />
@@ -78,7 +78,7 @@ const categories = Object.values(CATEGORIES);
       </div>
 
       <div class="mt-8">
-        <a href="/blog" class="text-sm text-[#71717A] hover:text-[#18181B] underline underline-offset-4 transition-colors duration-150">
+        <a href="/blog" class="text-sm text-[#52525B] hover:text-[#18181B] underline underline-offset-4 transition-colors duration-150">
           Wszystkie artykuły →
         </a>
       </div>
