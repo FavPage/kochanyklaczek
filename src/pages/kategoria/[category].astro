@@ -6,9 +6,11 @@ import type { CategorySlug } from '../../lib/categories';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  return Object.keys(CATEGORIES).map((slug) => ({
-    params: { category: slug },
-  }));
+  const allPosts = await getCollection('blog', (a) => !a.data.draft);
+  const categoriesWithPosts = new Set(allPosts.map((a) => a.data.category));
+  return Object.keys(CATEGORIES)
+    .filter((slug) => categoriesWithPosts.has(slug as CategorySlug))
+    .map((slug) => ({ params: { category: slug } }));
 }
 
 const { category } = Astro.params as { category: CategorySlug };
