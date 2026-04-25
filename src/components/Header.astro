@@ -2,12 +2,9 @@
 import { CATEGORIES, SITE } from '../lib/categories';
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.svg';
-import { getCollection } from 'astro:content';
 
 const currentPath = Astro.url.pathname;
-const allPosts = await getCollection('blog', (a) => !a.data.draft);
-const categoriesWithPosts = new Set(allPosts.map((a) => a.data.category));
-const categories = Object.values(CATEGORIES).filter((cat) => categoriesWithPosts.has(cat.slug));
+const categories = Object.values(CATEGORIES);
 ---
 
 <header class="border-b border-[#E4E4E7] bg-[#FAFAFA]">
