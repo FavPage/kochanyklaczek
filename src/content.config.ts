@@ -6,7 +6,8 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string().max(155),
-    category: z.enum(['zywienie', 'zdrowie', 'zachowanie', 'nowy-kot', 'akcesoria']),
+    category: z.enum(['zywienie', 'zdrowie', 'zachowanie', 'nowy-pupil', 'akcesoria']),
+    animal: z.enum(['kot', 'pies']).default('kot'),
     publishDate: z.date(),
     updatedDate: z.date().optional(),
     author: z.string().default('Kochany Kłaczek'),

@@ -1,23 +1,23 @@
 export const CATEGORIES = {
   zywienie: {
     slug: 'zywienie',
-    label: 'Żywienie kota',
-    description: 'Karma, skład, żywienie kota - co podawać, czego unikać.',
+    label: 'Żywienie',
+    description: 'Karma, skład, żywienie - co podawać, czego unikać.',
   },
   zdrowie: {
     slug: 'zdrowie',
     label: 'Zdrowie i weterynaria',
-    description: 'Objawy, wizyty u weta, profilaktyka i zdrowie kota.',
+    description: 'Objawy, wizyty u weta, profilaktyka i zdrowie pupila.',
   },
   zachowanie: {
     slug: 'zachowanie',
     label: 'Zachowanie i wychowanie',
-    description: 'Dlaczego kot tak robi i jak reagować - bez stresu.',
+    description: 'Dlaczego tak robi i jak reagować - bez stresu.',
   },
-  'nowy-kot': {
-    slug: 'nowy-kot',
-    label: 'Nowy kot w domu',
-    description: 'Pierwsze kroki z nowym kotem - co kupić, jak go przyjąć.',
+  'nowy-pupil': {
+    slug: 'nowy-pupil',
+    label: 'Nowy pupil w domu',
+    description: 'Pierwsze kroki z nowym pupilem - co kupić, jak go przyjąć.',
   },
   akcesoria: {
     slug: 'akcesoria',
@@ -31,7 +31,7 @@ export type CategorySlug = keyof typeof CATEGORIES;
 export const SITE = {
   name: 'Kochany Kłaczek',
   url: 'https://kochanyklaczek.pl',
-  description: 'Blog dla właścicieli kotów. Praktyczna wiedza o żywieniu, zdrowiu i zachowaniu kota.',
+  description: 'Blog dla właścicieli psów i kotów. Praktyczna wiedza o żywieniu, zdrowiu i zachowaniu pupila.',
   author: 'Kochany Kłaczek',
   logo: '/favicon.svg',
 } as const;
