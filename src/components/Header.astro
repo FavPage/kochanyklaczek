@@ -1,6 +1,5 @@
 ---
 import { CATEGORIES, SITE } from '../lib/categories';
-import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
 
 const currentPath = Astro.url.pathname;
@@ -11,7 +10,7 @@ const categories = Object.values(CATEGORIES);
   <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-6">
 
     <a href="/" class="flex items-center gap-2 shrink-0">
-      <Image src={logo} alt={SITE.name} width={88} height={88} />
+      <img src={logo.src} alt={SITE.name} class="h-14 w-auto" />
     </a>
 
     <nav aria-label="Główna nawigacja">
