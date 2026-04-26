@@ -29,7 +29,7 @@ const {
   type = 'website',
 } = Astro.props;
 
-const fullTitle = `${title} — ${SITE.name}`;
+const fullTitle = `${title} - ${SITE.name}`;
 const ogImage = image ? `${SITE.url}${image}` : `${SITE.url}/og-default.png`;
 
 const articleSchema = type === 'article' && publishDate ? {

@@ -2,7 +2,7 @@ export const CATEGORIES = {
   zywienie: {
     slug: 'zywienie',
     label: 'Żywienie kota',
-    description: 'Karma, skład, żywienie kota — co podawać, czego unikać.',
+    description: 'Karma, skład, żywienie kota - co podawać, czego unikać.',
   },
   zdrowie: {
     slug: 'zdrowie',
@@ -12,17 +12,17 @@ export const CATEGORIES = {
   zachowanie: {
     slug: 'zachowanie',
     label: 'Zachowanie i wychowanie',
-    description: 'Dlaczego kot tak robi i jak reagować — bez stresu.',
+    description: 'Dlaczego kot tak robi i jak reagować - bez stresu.',
   },
   'nowy-kot': {
     slug: 'nowy-kot',
     label: 'Nowy kot w domu',
-    description: 'Pierwsze kroki z nowym kotem — co kupić, jak go przyjąć.',
+    description: 'Pierwsze kroki z nowym kotem - co kupić, jak go przyjąć.',
   },
   akcesoria: {
     slug: 'akcesoria',
     label: 'Akcesoria i produkty',
-    description: 'Żwirek, kuweta, drapak, transporter — jak wybrać dobrze.',
+    description: 'Żwirek, kuweta, drapak, transporter - jak wybrać dobrze.',
   },
 } as const;
 
