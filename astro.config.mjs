@@ -6,6 +6,9 @@ import rehypeSlug from 'rehype-slug';
 
 export default defineConfig({
   site: 'https://kochanyklaczek.pl',
+  redirects: {
+    '/kategoria/nowy-kot': '/kategoria/nowy-pupil',
+  },
   integrations: [mdx(), sitemap()],
   markdown: {
     rehypePlugins: [rehypeSlug],
