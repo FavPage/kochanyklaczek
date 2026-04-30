@@ -1,19 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #FAFAFA;
-  --color-surface: #FFFFFF;
-  --color-text: #18181B;
-  --color-muted: #52525B;
-  --color-accent: #EC4899;
-  --color-border: #E4E4E7;
+  --color-bg: #fdf8f7;
+  --color-surface: #ffffff;
+  --color-text: #1c1b1b;
+  --color-muted: #4d4540;
+  --color-accent: #ecbbba;
+  --color-border: #cfc4bd;
 
-  --font-serif: 'Instrument Serif', Georgia, serif;
-  --font-sans: 'Nunito Sans', system-ui, sans-serif;
+  --font-serif: 'Newsreader', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-serif);
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.75;
@@ -21,6 +25,7 @@ body {
 }
 
 h1, h2, h3 {
+  font-family: var(--font-sans);
   line-height: 1.2;
 }
 
@@ -50,7 +55,7 @@ h1, h2, h3 {
 }
 
 .prose a {
-  color: var(--color-accent);
+  color: #3f2122;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -69,10 +74,9 @@ h1, h2, h3 {
   color: var(--color-text);
 }
 
-/* Focus rings dla dostępności */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid #3f2122;
   outline-offset: 2px;
   border-radius: 2px;
 }

@@ -42,7 +42,7 @@ const updatedFormatted = updatedDate?.toLocaleDateString('pl-PL', { day: 'numeri
         <li><a href="/" class="hover:text-[#18181B] transition-colors">Strona główna</a></li>
         <li aria-hidden="true">›</li>
         <li>
-          <a href={`/kategoria/${cat.slug}`} class="text-[#EC4899] hover:underline">{cat.label}</a>
+          <a href={`/kategoria/${cat.slug}`} class="text-[#D4A373] hover:underline">{cat.label}</a>
         </li>
         <li aria-hidden="true">›</li>
         <li class="text-[#18181B] truncate max-w-[200px]">{title}</li>
@@ -51,7 +51,7 @@ const updatedFormatted = updatedDate?.toLocaleDateString('pl-PL', { day: 'numeri
 
     <!-- Article header -->
     <header class="mb-10">
-      <h1 class="font-['Instrument_Serif'] text-4xl sm:text-5xl text-[#18181B] leading-tight mb-4">
+      <h1 class="font-['Plus_Jakarta_Sans'] text-4xl sm:text-5xl font-bold tracking-tight text-[#1c1b1b] leading-[1.1] mb-4">
         {title}
       </h1>
       <div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-[#71717A]">
@@ -70,7 +70,7 @@ const updatedFormatted = updatedDate?.toLocaleDateString('pl-PL', { day: 'numeri
         alt={imageAlt}
         width="1200"
         height="600"
-        class="w-full h-full object-contain"
+        class="w-full h-full object-cover"
         loading="eager"
         decoding="async"
       />

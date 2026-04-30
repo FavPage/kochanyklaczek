@@ -6,46 +6,82 @@ const currentPath = Astro.url.pathname;
 const categories = Object.values(CATEGORIES);
 ---
 
-<header class="border-b border-[#E4E4E7] bg-[#FAFAFA]">
-  <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between gap-6">
+<header class="sticky top-0 border-b border-[#e6e1e0] shadow-[0_20px_50px_rgba(45,41,38,0.04)] bg-[#fdfcfb] z-50">
+  <div class="flex justify-between items-center w-full px-6 md:px-8 py-4 max-w-[1200px] mx-auto">
 
-    <a href="/" class="flex items-center gap-2 shrink-0">
-      <img src={logo.src} alt={SITE.name} class="h-20 w-auto" />
+    <a href="/" class="shrink-0 flex items-center">
+      <img src={logo.src} alt={SITE.name} class="h-10 w-auto" />
     </a>
 
-    <nav aria-label="Główna nawigacja">
-      <ul class="flex flex-wrap gap-x-5 gap-y-1 text-sm">
-        {categories.map((cat) => {
-          const isActive = currentPath.startsWith(`/kategoria/${cat.slug}`);
-          return (
-            <li>
-              <a
-                href={`/kategoria/${cat.slug}`}
-                class={`transition-colors duration-150 hover:text-[#EC4899] ${
-                  isActive ? 'text-[#EC4899] font-semibold' : 'text-[#71717A]'
-                }`}
-              >
-                {cat.label}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+    <nav class="hidden md:flex items-center space-x-7" aria-label="Główna nawigacja">
+      {categories.map((cat) => {
+        const isActive = currentPath.startsWith(`/kategoria/${cat.slug}`);
+        return (
+          <a
+            href={`/kategoria/${cat.slug}`}
+            class={`font-['Plus_Jakarta_Sans'] text-sm font-medium tracking-tight transition-colors duration-200 ${
+              isActive
+                ? 'text-[#2D2926] border-b-2 border-[#D4A373] pb-0.5'
+                : 'text-[#7e756f] hover:text-[#2D2926]'
+            }`}
+          >
+            {cat.label}
+          </a>
+        );
+      })}
     </nav>
 
-    <a
-      href="https://www.instagram.com/kochanyklaczek/"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Instagram Kochany Kłaczek"
-      class="shrink-0 text-[#71717A] hover:text-[#EC4899] transition-colors duration-150"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-        <circle cx="12" cy="12" r="4.5"/>
-        <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"/>
-      </svg>
-    </a>
+    <div class="flex items-center gap-2">
+      <a
+        href="https://www.instagram.com/kochanyklaczek/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram Kochany Kłaczek"
+        class="text-[#2D2926] hover:opacity-70 transition-opacity p-2 flex items-center"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4.5"/>
+          <circle cx="17.5" cy="6.5" r="0.75" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+
+      <button
+        class="md:hidden p-2 text-[#2D2926]"
+        aria-label="Otwórz menu"
+        aria-expanded="false"
+        id="mobile-menu-btn"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
 
   </div>
+
+  <div class="hidden border-t border-[#e6e1e0]" id="mobile-menu">
+    <nav class="flex flex-col px-6 py-4 gap-4 max-w-[1200px] mx-auto" aria-label="Menu mobilne">
+      {categories.map((cat) => (
+        <a
+          href={`/kategoria/${cat.slug}`}
+          class="font-['Plus_Jakarta_Sans'] text-sm font-medium text-[#4d4540] hover:text-[#2D2926] py-1 transition-colors"
+        >
+          {cat.label}
+        </a>
+      ))}
+    </nav>
+  </div>
 </header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!isOpen));
+  });
+</script>

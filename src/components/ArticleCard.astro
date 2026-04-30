@@ -7,46 +7,50 @@ interface Props {
 }
 
 const { article } = Astro.props;
-const { title, category, image, imageAlt, readingTime, publishDate } = article.data;
+const { title, description, category, image, imageAlt, readingTime, publishDate } = article.data;
 const cat = CATEGORIES[category];
 
 const dateFormatted = publishDate.toLocaleDateString('pl-PL', {
   day: 'numeric',
-  month: 'long',
+  month: 'short',
   year: 'numeric',
 });
 ---
 
-<article class="group border border-[#E4E4E7] rounded-lg overflow-hidden bg-white hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)] transition-shadow duration-200 cursor-pointer">
-  <a href={`/blog/${article.id}`} class="block">
+<article class="group flex flex-col gap-5 cursor-pointer">
+  <a href={`/blog/${article.id}`} class="flex flex-col gap-5">
 
-    <div class="aspect-[3/2] overflow-hidden bg-[#F4F4F5]">
+    <div class="relative w-full aspect-[4/3] rounded-[20px] overflow-hidden bg-[#f1edec]">
       <img
         src={image}
         alt={imageAlt}
         width="600"
-        height="400"
-        class="w-full h-full object-contain"
+        height="450"
+        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         loading="lazy"
         decoding="async"
       />
-    </div>
-
-    <div class="p-5">
-      <div class="flex items-center justify-between mb-3">
-        <span class="text-xs font-semibold uppercase tracking-wide text-[#EC4899] bg-[#FCE7F3] px-2.5 py-0.5 rounded-full">
+      <div class="absolute top-4 left-4">
+        <span class="inline-flex items-center px-3.5 py-1.5 bg-white/90 backdrop-blur-sm text-[#1c1b1b] font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-[0.08em] uppercase rounded-full">
           {cat.label}
         </span>
-        <span class="text-xs text-[#52525B]">{readingTime} min czytania</span>
       </div>
+    </div>
 
-      <h2 class="font-['Instrument_Serif'] text-xl text-[#18181B] leading-snug mb-2 group-hover:text-[#EC4899] transition-colors duration-150">
+    <div class="flex flex-col gap-2.5">
+      <h2 class="font-['Plus_Jakarta_Sans'] text-[1.05rem] font-semibold text-[#1c1b1b] group-hover:text-[#3f2122] transition-colors line-clamp-2 leading-snug">
         {title}
       </h2>
-
-      <time class="text-xs text-[#52525B]" datetime={publishDate.toISOString()}>
-        {dateFormatted}
-      </time>
+      {description && (
+        <p class="text-[#7e756f] line-clamp-2 leading-relaxed" style="font-family: 'Newsreader', serif; font-size: 1rem;">
+          {description}
+        </p>
+      )}
+      <div class="flex items-center gap-2 mt-1 text-[#7e756f] font-['Plus_Jakarta_Sans'] text-[10px] font-bold tracking-[0.08em] uppercase">
+        <span>{readingTime} min czytania</span>
+        <span aria-hidden="true">•</span>
+        <time datetime={publishDate.toISOString()}>{dateFormatted}</time>
+      </div>
     </div>
 
   </a>
