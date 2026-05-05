@@ -1,33 +1,104 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../lib/categories';
 ---
 
 <BaseLayout
-  title="O nas"
-  description="Kochany Kłaczek to blog dla właścicieli kotów. Piszemy o żywieniu, zdrowiu i zachowaniu kotów - praktycznie i bez lania wody."
+  title="O nas — Kochany Kłaczek"
+  description="Kochany Kłaczek to blog dla właścicieli psów i kotów. Konkretne odpowiedzi na realne pytania — w polskich realiach, bez owijania w bawełnę."
 >
-  <div class="max-w-2xl mx-auto px-4 py-16">
-    <h1 class="font-['Instrument_Serif'] text-4xl text-[#18181B] mb-8">O Kochanym Kłaczku</h1>
 
-    <div class="prose">
+  <!-- Hero -->
+  <section class="max-w-[800px] mx-auto px-4 md:px-8 pt-20 pb-12">
+    <p class="text-xs font-bold font-['Plus_Jakarta_Sans'] tracking-[0.12em] uppercase text-[#D4A373] mb-6">O nas</p>
+    <h1 class="font-['Plus_Jakarta_Sans'] text-4xl sm:text-5xl font-bold tracking-tight text-[#1c1b1b] leading-[1.1] mb-6">
+      Konkretna wiedza<br class="hidden sm:block" /> o psach i kotach.<br class="hidden sm:block" /> Po polsku.
+    </h1>
+    <p class="text-xl text-[#4d4540] leading-relaxed max-w-xl" style="font-family: 'Newsreader', serif;">
+      Kochany Kłaczek to poradniki dla właścicieli, którzy chcą rozumieć swojego pupila — nie tylko googlować o drugiej w nocy.
+    </p>
+  </section>
+
+  <!-- Divider -->
+  <div class="max-w-[800px] mx-auto px-4 md:px-8">
+    <hr class="border-[#e8e0db]" />
+  </div>
+
+  <!-- Mission -->
+  <section class="max-w-[800px] mx-auto px-4 md:px-8 py-12">
+    <div style="font-family: 'Newsreader', serif;" class="text-lg text-[#3a3330] leading-relaxed space-y-5">
       <p>
-        Kochany Kłaczek to blog dla właścicieli kotów, którzy traktują swojego kota jak członka rodziny - i chcą mu zapewnić najlepszą opiekę.
+        W polskim internecie artykułów o psach i kotach nie brakuje. Trudniej znaleźć odpowiedzi na pytania, które naprawdę zadajesz — takie jak: <em>dlaczego mój pies ciągnie smycz</em>, <em>ile razy dziennie karmić kota</em> albo <em>czy to coś poważnego, czy możemy poczekać do rana</em>.
       </p>
-
       <p>
-        Piszemy dla osób, które zaczynają przygodę z kotem, jak i tych, którzy mają kota od lat, ale wciąż szukają odpowiedzi na konkretne pytania.
-      </p>
-
-      <h2>Dla kogo jest ten blog?</h2>
-      <p>
-        Dla właścicieli kotów w Polsce, którzy chcą wiedzieć: co podawać kotu, kiedy jechać do weterynarza, dlaczego kot tak się zachowuje - i jak wybrać dobre akcesoria, nie przepłacając.
-      </p>
-
-      <h2>Kto pisze?</h2>
-      <p>
-        Artykuły tworzy redakcja Kochany Kłaczek - z miłości do kotów i szacunku do Twojego czasu. Staramy się pisać konkretnie, na temat i bez zbędnych ozdobników.
+        Kochany Kłaczek powstał żeby na te pytania odpowiadać. Bez owijania w bawełnę, bez generycznych porad pisanych pod wyszukiwarki i bez marnowania Twojego czasu.
       </p>
     </div>
+  </section>
+
+  <!-- Differentiators -->
+  <section class="max-w-[800px] mx-auto px-4 md:px-8 pb-12">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+      <div class="bg-[#fdf8f7] border border-[#e8e0db] rounded-[20px] p-6">
+        <div class="w-8 h-8 rounded-full bg-[#ecbbba] flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-[#3f2122] text-base" style="font-size: 18px;">target</span>
+        </div>
+        <h3 class="font-['Plus_Jakarta_Sans'] font-semibold text-[#1c1b1b] text-base mb-2">Konkretność</h3>
+        <p class="text-sm text-[#4d4540] leading-relaxed" style="font-family: 'Newsreader', serif;">
+          Każdy artykuł odpowiada na jedno pytanie. Tak szukasz — tak piszemy.
+        </p>
+      </div>
+
+      <div class="bg-[#fdf8f7] border border-[#e8e0db] rounded-[20px] p-6">
+        <div class="w-8 h-8 rounded-full bg-[#ecbbba] flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-[#3f2122] text-base" style="font-size: 18px;">verified</span>
+        </div>
+        <h3 class="font-['Plus_Jakarta_Sans'] font-semibold text-[#1c1b1b] text-base mb-2">Merytoryka</h3>
+        <p class="text-sm text-[#4d4540] leading-relaxed" style="font-family: 'Newsreader', serif;">
+          Opieramy się na standardach weterynaryjnych. Zawsze zaznaczamy, kiedy temat wymaga wizyty u weterynarza.
+        </p>
+      </div>
+
+      <div class="bg-[#fdf8f7] border border-[#e8e0db] rounded-[20px] p-6">
+        <div class="w-8 h-8 rounded-full bg-[#ecbbba] flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-[#3f2122] text-base" style="font-size: 18px;">language</span>
+        </div>
+        <h3 class="font-['Plus_Jakarta_Sans'] font-semibold text-[#1c1b1b] text-base mb-2">Polskie realia</h3>
+        <p class="text-sm text-[#4d4540] leading-relaxed" style="font-family: 'Newsreader', serif;">
+          Polskie produkty, ceny i kontekst. Nie tłumaczymy anglojęzycznych artykułów z nadzieją, że "jakoś pasuje".
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="max-w-[800px] mx-auto px-4 md:px-8">
+    <hr class="border-[#e8e0db]" />
   </div>
+
+  <!-- For whom -->
+  <section class="max-w-[800px] mx-auto px-4 md:px-8 py-12">
+    <h2 class="font-['Plus_Jakarta_Sans'] text-xl font-semibold text-[#1c1b1b] mb-4">Dla kogo?</h2>
+    <p class="text-lg text-[#4d4540] leading-relaxed" style="font-family: 'Newsreader', serif;">
+      Dla opiekunów psów i kotów w Polsce, którzy traktują pupila jak członka rodziny. Zarówno tych, którzy zaczynają przygodę z pierwszym zwierzęciem, jak i tych, którzy mają psa lub kota od lat — i wciąż natrafiają na nowe pytania.
+    </p>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-[800px] mx-auto px-4 md:px-8 pb-20">
+    <div class="bg-[#f5ede9] rounded-[24px] px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div>
+        <p class="font-['Plus_Jakarta_Sans'] font-semibold text-[#1c1b1b] text-lg mb-1">Gotowy na konkrety?</p>
+        <p class="text-sm text-[#4d4540]" style="font-family: 'Newsreader', serif;">Ponad 15 artykułów o psach i kotach — i stale przybywa.</p>
+      </div>
+      <a
+        href="/blog"
+        class="shrink-0 inline-flex items-center px-7 py-3.5 bg-[#ecbbba] text-[#3f2122] text-xs font-bold font-['Plus_Jakarta_Sans'] tracking-[0.08em] uppercase rounded-full hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+      >
+        Czytaj poradniki
+      </a>
+    </div>
+  </section>
+
 </BaseLayout>
