@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths({ paginate }: { paginate: Function }) {
+  const allArticles = await getCollection('blog', (a: any) => !a.data.draft);
+  const sorted = allArticles.sort((a: any, b: any) =>
+    b.data.publishDate.getTime() - a.data.publishDate.getTime()
+  );
+  return paginate(sorted, { pageSize: 12 });
+}
+
+const { page } = Astro.props as any;
+const isFirstPage = page.currentPage === 1;
+---
+
+<BaseLayout
+  title={isFirstPage ? 'Artykuły o psach i kotach' : `Artykuły - strona ${page.currentPage}`}
+  description="Praktyczne poradniki o żywieniu, zdrowiu i zachowaniu psów i kotów. Konkretne odpowiedzi na pytania każdego opiekuna pupila."
+>
+  <div class="max-w-5xl mx-auto px-4 py-12">
+    <h1 class="font-['Instrument_Serif'] text-4xl text-[#18181B] mb-10">
+      {isFirstPage ? 'Artykuły o psach i kotach' : `Artykuły — strona ${page.currentPage}`}
+    </h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {page.data.map((article: any) => (
+        <ArticleCard article={article} />
+      ))}
+    </div>
+
+    {(page.url.prev || page.url.next) && (
+      <nav class="flex items-center justify-center gap-6 mt-14" aria-label="Paginacja artykułów">
+        {page.url.prev ? (
+          <a
+            href={page.url.prev}
+            class="inline-flex items-center gap-2 px-6 py-3 bg-[#ecbbba] text-[#3f2122] text-xs font-bold font-['Plus_Jakarta_Sans'] tracking-[0.06em] uppercase rounded-full hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+          >
+            ← Nowsze
+          </a>
+        ) : <span class="w-28" />}
+
+        <span class="text-sm text-[#71717A] font-['Plus_Jakarta_Sans']">
+          {page.currentPage} / {page.lastPage}
+        </span>
+
+        {page.url.next ? (
+          <a
+            href={page.url.next}
+            class="inline-flex items-center gap-2 px-6 py-3 bg-[#ecbbba] text-[#3f2122] text-xs font-bold font-['Plus_Jakarta_Sans'] tracking-[0.06em] uppercase rounded-full hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+          >
+            Starsze →
+          </a>
+        ) : <span class="w-28" />}
+      </nav>
+    )}
+  </div>
+</BaseLayout>

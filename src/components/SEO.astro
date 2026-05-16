@@ -13,6 +13,7 @@ interface Props {
   faq?: { q: string; a: string }[];
   breadcrumbs?: { name: string; url: string }[];
   type?: 'website' | 'article';
+  isHomepage?: boolean;
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   faq = [],
   breadcrumbs = [],
   type = 'website',
+  isHomepage = false,
 } = Astro.props;
 
 const fullTitle = type === 'article' ? title : `${title} - ${SITE.name}`;
@@ -67,6 +69,14 @@ const faqSchema = faq.length > 0 ? {
   })),
 } : null;
 
+const websiteSchema = isHomepage ? {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: SITE.url,
+  description: SITE.description,
+} : null;
+
 const breadcrumbSchema = breadcrumbs.length > 0 ? {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -104,6 +114,9 @@ const breadcrumbSchema = breadcrumbs.length > 0 ? {
 {imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
 
 <!-- Schemas JSON-LD -->
+{websiteSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+)}
 {articleSchema && (
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
 )}
