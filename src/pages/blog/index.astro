@@ -10,11 +10,11 @@ const sorted = allArticles.sort((a, b) =>
 ---
 
 <BaseLayout
-  title="Wszystkie artykuły"
-  description="Artykuły o kotach - żywienie, zdrowie, zachowanie, akcesoria i nowy kot w domu."
+  title="Artykuły o psach i kotach"
+  description="Praktyczne poradniki o żywieniu, zdrowiu i zachowaniu psów i kotów. Konkretne odpowiedzi na pytania każdego opiekuna pupila."
 >
   <div class="max-w-5xl mx-auto px-4 py-12">
-    <h1 class="font-['Instrument_Serif'] text-4xl text-[#18181B] mb-10">Wszystkie artykuły</h1>
+    <h1 class="font-['Instrument_Serif'] text-4xl text-[#18181B] mb-10">Artykuły o psach i kotach</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {sorted.map((article) => (
         <ArticleCard article={article} />
